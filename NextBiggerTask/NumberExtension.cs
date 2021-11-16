@@ -39,21 +39,7 @@ namespace NextBiggerTask
                     int tmp = digitArray[i];
                     digitArray[i] = digitArray[i - 1];
                     digitArray[i - 1] = tmp;
-                    for (int j = i; j < digitArray.Length - 1; j++)
-                    {
-                        int min = j;
-                        for (int k = j + 1; k < digitArray.Length; k++)
-                        {
-                            if (digitArray[k] < digitArray[min])
-                            {
-                                min = k;
-                            }
-                        }
-
-                        int tmp1 = digitArray[min];
-                        digitArray[min] = digitArray[j];
-                        digitArray[j] = tmp1;
-                    }
+                    Array.Sort(digitArray, i, digitArray.Length - i);
                 }
 
                 int res = 0;
