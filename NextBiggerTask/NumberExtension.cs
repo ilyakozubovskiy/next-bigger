@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 
 namespace NextBiggerTask
 {
@@ -25,11 +24,19 @@ namespace NextBiggerTask
                 return null;
             }
 
-            string numberInString = number.ToString(CultureInfo.InvariantCulture);
-            int[] digitArray = new int[numberInString.Length];
-            for (int i = 0; i < numberInString.Length; i++)
+            int length = 1;
+            decimal numberDecimal = number;
+
+            while ((numberDecimal /= 10) >= 1)
             {
-                digitArray[i] = Convert.ToInt32(new string(numberInString[i], 1), new CultureInfo("en-US"));
+                length++;
+            }
+
+            int[] digitArray = new int[length];
+
+            for (int i = 1, num = number; num > 0; num /= 10, i++)
+            {
+                digitArray[^i] = num % 10;
             }
 
             for (int i = digitArray.Length - 1; i > 0; i--)
@@ -45,7 +52,7 @@ namespace NextBiggerTask
                 int res = 0;
                 for (int j = 0; j < digitArray.Length; j++)
                 {
-                    res += digitArray[j] * Convert.ToInt32(Math.Pow(10, digitArray.Length - j - 1));
+                    res = (10 * res) + digitArray[j];
                 }
 
                 if (res > number)
